@@ -1,70 +1,69 @@
-import React, {Component } from 'react';
-import SearchArea from '../SearchArea';
-import request from 'superagent';
+import React, { Component } from 'react';
 import BookList from './BookList';
-
+import SearchArea from './SearchArea';
+import request from 'superagent';
 
 class Books extends Component {
-    constructor(props) {
-        super(props);
-            this.state = {
-                books: [],
-                searchField: '',
-                sort: ''
-            
+
+    constructor(props){
+        super(props)
+        this.state = {
+            books: [],
+            searchField: '',
+            sort: ''
         }
     }
+    componentDidMount() {
+        request
+            .get("https://www.googleapis.com/books/v1/volumes")
+            .query({ q: this.state.searchField })
+            .then((data) => {
+                this.setState({ books: [...data.body.items] })
+            })
+    }
 
-    searchBook = () => {
+    handleSubmit = (e) => {
         e.preventDefault();
         request
-        .get("http://www.googleapis.com/books/v1/volumes")
-        .query({ q: this.searchField })
-        .then((data) => {
-            const cleanData = this.cleanData(data)
-            this.setState({ books: [...data.body.items ]})
+            .get("https://www.googleapis.com/books/v1/volumes")
+            .query({ q: this.state.searchField })
+            .then((data) => {
+                console.log(data);
+                this.setState({ books: [...data.body.items] })
         })
     }
 
-    handleSearch = (e) => {
+    handleChange = (e) => {
         this.setState({ searchField: e.target.value })
     }
 
     handleSort = (e) => {
-        console.log(e.taget.value);
-        this.setState({ sort: e.target.value})
+        this.setState({ sort: e.target.value});
     }
+    
 
-    cleanData = (e) => {
-        const cleanData = data.body.items.map((book) => {
-            if(book.volumeInfo.hasOwnProperty('publishedDate') === false) {
-            book.volumeInfo['publishedDate'] = '0000';
-            }
-            else if (book.volumeInfo.hasOwnProperty('imageLinks')  ===false) {
-                book.volumeInfo['imageLinks'] = {thumbnail};
-
-            }
-
-            return book;
-        
-
-        })
-
-        return cleanData;
-    }
     render() {
-        const sortedBooks = this.state.books.sort((a,b) => {
-            if(this.state.sort === 'Newest') {
-                return parseInt(b.volumeInfo.publishedDate.substring(0,4)) - (a.volumeInfo.publishedDate.substring(0,4))
+        const filteredBooks = this.state.books.sort((a, b) => {
+            if(this.state.sort == 'Newest'){
+                console.log("in newest")
+                return parseInt(b.volumeInfo.publishedDate.substring(0, 4)) - parseInt(a.volumeInfo.publishedDate.substring(0, 4));
             }
-            if(this.state.sort === 'Oldest') {
-                return parseInt(b.volumeInfo.publishedDate.substring(0,4)) - (a.volumeInfo.publishedDate.substring(0,4))
+            else if(this.state.sort == 'Oldest'){
+                return parseInt(a.volumeInfo.publishedDate.substring(0, 4)) - parseInt(b.volumeInfo.publishedDate.substring(0, 4));
             }
+          
+          return;
         })
+
         return (
-            <div>
-                <SearchArea searchBook={this.searchBook} handleSearch={this.handleSearch} handleSort={this.handleSort} />
-                <BookList books={sortedBooks}/>
+            <div className="wrapper">
+                <SearchArea
+                    data={this.state} 
+                    handleSubmit={this.handleSubmit} 
+                    handleChange={this.handleChange} 
+                    handleSort={this.handleSort}
+                />
+                <BookList books={filteredBooks}/>
             </div>
         );
     }
