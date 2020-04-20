@@ -1,6 +1,8 @@
+//
+
 import React, { Component } from 'react';
 import BookList from './BookList';
-import SearchArea from './SearchArea';
+import SearchBox from './SearchBox';
 import request from 'superagent';
 
 class Books extends Component {
@@ -13,14 +15,14 @@ class Books extends Component {
             sort: ''
         }
     }
-    componentDidMount() {
-        request
-            .get("https://www.googleapis.com/books/v1/volumes")
-            .query({ q: this.state.searchField })
-            .then((data) => {
-                this.setState({ books: [...data.body.items] })
-            })
-    }
+    // componentDidMount() {
+    //     request
+    //         .get("https://www.googleapis.com/books/v1/volumes")
+    //         .query({ q: this.state.searchField })
+    //         .then((data) => {
+    //             this.setState({ books: [...data.body.items] })
+    //         })
+    // }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -44,11 +46,11 @@ class Books extends Component {
 
     render() {
         const filteredBooks = this.state.books.sort((a, b) => {
-            if(this.state.sort == 'Newest'){
+            if(this.state.sort === 'Newest'){
                 console.log("in newest")
                 return parseInt(b.volumeInfo.publishedDate.substring(0, 4)) - parseInt(a.volumeInfo.publishedDate.substring(0, 4));
             }
-            else if(this.state.sort == 'Oldest'){
+            else if(this.state.sort === 'Oldest'){
                 return parseInt(a.volumeInfo.publishedDate.substring(0, 4)) - parseInt(b.volumeInfo.publishedDate.substring(0, 4));
             }
           
@@ -57,7 +59,7 @@ class Books extends Component {
 
         return (
             <div className="wrapper">
-                <SearchArea
+                <SearchBox 
                     data={this.state} 
                     handleSubmit={this.handleSubmit} 
                     handleChange={this.handleChange} 
