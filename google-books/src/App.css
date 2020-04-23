@@ -37,9 +37,9 @@
   }
 }
 
-header {
+/* header {
   padding: 30px 0 30px 0;
-  background: green;
+  
   color: white;
   text-align: center;
 }
@@ -48,7 +48,7 @@ header h1 {
   display: inline;
   margin-left: 15px;
   font-weight: 300;
-}
+} */
 
 .list {
   display: grid;
@@ -65,10 +65,11 @@ header h1 {
   margin: 0 auto;
   border-radius: 5px;
   overflow: hidden;
+  background-color: white;
 }
 
 .desc {
-  height: 130px;
+  height: 180px;
   padding: 10px;
 }
 
@@ -83,7 +84,8 @@ header h1 {
 }
 
 .desc h3 {
-  color: gray;
+  color: white;
   font-size: 1em;
   padding: 10px 0 10px 0 ;
 }
+

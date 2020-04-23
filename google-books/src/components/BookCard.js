@@ -15,7 +15,9 @@ const BookCard = (props) => {
         <div className="desc">
           <h2>{title}</h2>
           <h3>Author: {authors}</h3>
-          <p>Published: {publishYear === "0000" ? "Not available" : publishYear.substring(0,4)}</p>                        
+          <p>Published: {publishYear === "0000" ? "Not available" : publishYear.substring(0,4)}</p> 
+          <button type="save">Save</button>  
+
         </div>
       </div>
       
