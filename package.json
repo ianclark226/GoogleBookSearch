@@ -1,8 +1,24 @@
 {
-  "name": "googlebooksearch",
-  "version": "1.0.0",
-  "description": "Here is my React Google Book Search. When you type a book in the search bar it will come up with books with that title. You can sort the books from newest to oldest. The one thing I had trouble with is that when you save the book it will save the whole search instead of the single book. I couldn't figure out what the problem was.",
-  "main": "index.js",
+  "name": "google-books",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.4.1",
+    "concurrently": "^5.1.0",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.9.10",
+    "nodemon": "^2.0.3",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-navbar": "^3.0.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "superagent": "^5.2.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -12,14 +28,24 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "cd client && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ianclark226/GoogleBookSearch.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "scripts.js",
+  "devDependencies": {},
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ianclark226/GoogleBookSearch/issues"
-  },
-  "homepage": "https://github.com/ianclark226/GoogleBookSearch#readme"
+  "license": "ISC"
 }
